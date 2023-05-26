@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Finanzas.API.Clients.Domain.Models;
+using Finanzas.API.Clients.Resources;
 using Finanzas.API.Security.Domain.Models;
 using Finanzas.API.Security.Domain.Services.Communication;
 
@@ -18,5 +20,6 @@ public class ResourceToModelProfile: Profile
                         string.IsNullOrEmpty((string) property)) return false;
                     return true;
                 }));
+        CreateMap<SaveClientResource, Client>();
     }
 }
