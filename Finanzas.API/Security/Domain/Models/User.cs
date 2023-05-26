@@ -1,4 +1,6 @@
-﻿namespace Finanzas.API.Security.Domain.Models;
+﻿using Finanzas.API.Clients.Domain.Models;
+
+namespace Finanzas.API.Security.Domain.Models;
 
 public class User
 {
@@ -9,4 +11,6 @@ public class User
     public string? Image { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
+
+    public IList<Client> Clients { get; set; } = new List<Client>();
 }

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Finanzas.API.Clients.Domain.Models;
+using Finanzas.API.Clients.Resources;
 using Finanzas.API.Security.Domain.Models;
 using Finanzas.API.Security.Domain.Services.Communication;
 using Finanzas.API.Security.Resources;
@@ -11,5 +13,6 @@ public class ModelToResourceProfile: Profile
     {
         CreateMap<User, AuthenticateResponse>();
         CreateMap<User, UserResource>();
+        CreateMap<Client, ClientResource>();
     }
 }

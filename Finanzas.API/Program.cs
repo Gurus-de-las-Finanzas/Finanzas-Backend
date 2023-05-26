@@ -1,3 +1,7 @@
+using Finanzas.API.Clients.Domain.Repositories;
+using Finanzas.API.Clients.Domain.Services;
+using Finanzas.API.Clients.Persistence.Repositories;
+using Finanzas.API.Clients.Services;
 using Finanzas.API.Security.Authorization.Handlers.Implementations;
 using Finanzas.API.Security.Authorization.Handlers.Interfaces;
 using Finanzas.API.Security.Authorization.Middleware;
@@ -82,6 +86,9 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtHandler, JwtHandler>();
+
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 builder.Services.AddAutoMapper(
     typeof(ModelToResourceProfile), 
