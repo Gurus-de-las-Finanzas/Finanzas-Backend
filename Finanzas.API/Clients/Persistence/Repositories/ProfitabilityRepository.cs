@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Finanzas.API.Clients.Persistence.Repositories;
 
-public class ClientRepository: CrudRepository<Client, int>, IClientRepository
+public class ProfitabilityRepository : CrudRepository<Profitability, int>, IProfitabilityRepository
 {
-    public ClientRepository(AppDbContext context) : base(context.Clients)
+    public ProfitabilityRepository(AppDbContext context) : base(context.Profitabilities)
     {
     }
 
-    public async Task<IEnumerable<Client>> ListByUserIdAsync(int userId)
+    public async Task<IEnumerable<Profitability>> ListByUserIdAsync(int userId)
     {
         return await DataSet
             .Where(p => p.UserId == userId)

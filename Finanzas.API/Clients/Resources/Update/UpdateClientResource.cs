@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Finanzas.API.Clients.Resources;
+namespace Finanzas.API.Clients.Resources.Update;
 
-public class SaveClientResource
+public class UpdateClientResource
 {
     [Required]
     [MaxLength(50)]
@@ -14,8 +14,6 @@ public class SaveClientResource
     
     [Required]
     [StringLength(8)]
+    [MinLength(8)]
     public string DNI { set; get; }
-    
-    [Required]
-    public int UserId { set; get; }
 }

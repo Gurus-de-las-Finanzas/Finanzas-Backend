@@ -3,7 +3,7 @@ using Finanzas.API.Shared.Domain.Repositories;
 
 namespace Finanzas.API.Clients.Domain.Repositories;
 
-public interface IClientRepository : ICrudRepository<Client, int>
+public interface IProfitabilityRepository : ICrudRepository<Profitability, int>
 {
-    Task<IEnumerable<Client>> ListByUserIdAsync(int userId);
+    Task<IEnumerable<Profitability>> ListByUserIdAsync(int userId);
 }

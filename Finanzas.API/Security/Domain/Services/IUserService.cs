@@ -1,5 +1,6 @@
 ﻿using Finanzas.API.Security.Domain.Models;
 using Finanzas.API.Security.Domain.Services.Communication;
+using Finanzas.API.Shared.Domain.Services;
 
 namespace Finanzas.API.Security.Domain.Services;
 

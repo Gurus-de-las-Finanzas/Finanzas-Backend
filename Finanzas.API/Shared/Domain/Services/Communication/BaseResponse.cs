@@ -1,6 +1,6 @@
 ﻿namespace Finanzas.API.Shared.Domain.Services.Communication;
 
-public abstract class BaseResponse<T>
+public class BaseResponse<T>
 {
     public string Message { get; set; }
     public T Resource { get; set; }
@@ -18,5 +18,14 @@ public abstract class BaseResponse<T>
         Success = true;
         Message = string.Empty;
         Resource = resource;
+    }
+    
+    public static BaseResponse<T> Of(string message)
+    {
+        return new BaseResponse<T>(message);
+    }
+    public static BaseResponse<T> Of(T entity)
+    {
+        return new BaseResponse<T>(entity);
     }
 }

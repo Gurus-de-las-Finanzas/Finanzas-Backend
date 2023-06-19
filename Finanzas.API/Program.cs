@@ -1,5 +1,7 @@
+using Finanzas.API.Clients.Domain.Models;
 using Finanzas.API.Clients.Domain.Repositories;
 using Finanzas.API.Clients.Domain.Services;
+using Finanzas.API.Clients.Mapping;
 using Finanzas.API.Clients.Persistence.Repositories;
 using Finanzas.API.Clients.Services;
 using Finanzas.API.Security.Authorization.Handlers.Implementations;
@@ -89,6 +91,19 @@ builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IGenericMap<Client, Client>, ClientMap>();
+
+builder.Services.AddScoped<IProfitabilityService, ProfitabilityService>();
+builder.Services.AddScoped<IProfitabilityRepository, ProfitabilityRepository>();
+builder.Services.AddScoped<IGenericMap<Profitability, Profitability>, ProfitabilityMap>();
+
+builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<IGenericMap<Schedule, Schedule>, ScheduleMap>();
+
+builder.Services.AddScoped<IPeriodRepository, PeriodRepository>();
+builder.Services.AddScoped<IPeriodService, PeriodService>();
+builder.Services.AddScoped<IGenericMap<Period, Period>, PeriodMap>();
 
 builder.Services.AddAutoMapper(
     typeof(ModelToResourceProfile), 
