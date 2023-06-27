@@ -28,5 +28,19 @@ public class PeriodService : CrudService<Period, int>, IPeriodService
         var result = await _periodRepository.FindByScheduleIdAndPeriodNumber(scheduleId, periodNumber);
         return result == null ? BaseResponse<Period>.Of("Period with number " + periodNumber + " not found") : BaseResponse<Period>.Of(result);
     }
-    
+
+    public async Task<BaseResponse<bool>> SaveManyAsync(IEnumerable<Period> periods)
+    {
+        try
+        {
+            await _periodRepository.SaveManyAsync(periods);
+            await UnitOfWork.CompleteAsync();
+            return BaseResponse<bool>.Of(true);
+        }
+        catch (Exception e)
+        {
+            return BaseResponse<bool>.Of("Unexpected error occurred while saving the " + EntityName + ": " + e.Message);
+        }
+    }
 }
+    

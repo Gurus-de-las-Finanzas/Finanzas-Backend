@@ -9,14 +9,14 @@ namespace Finanzas.API.Shared.Domain.Services;
 public class CrudService<TEntity, TId> : ICrudService<TEntity, TId> where TEntity : class, IBaseEntity<TId>
 {
     private readonly ICrudRepository<TEntity, TId> _crudRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    protected readonly IUnitOfWork UnitOfWork;
     protected string EntityName;
     private IGenericMap<TEntity, TEntity> GenericMap { get; }
 
     protected CrudService(ICrudRepository<TEntity, TId> crudRepository, IUnitOfWork unitOfWork, IGenericMap<TEntity, TEntity> genericMap)
     {
         this._crudRepository = crudRepository;
-        this._unitOfWork = unitOfWork;
+        this.UnitOfWork = unitOfWork;
         GenericMap = genericMap;
         this.EntityName = "Entity";
     }
@@ -31,7 +31,7 @@ public class CrudService<TEntity, TId> : ICrudService<TEntity, TId> where TEntit
         try
         {
             await this._crudRepository.AddAsync(entity);
-            await this._unitOfWork.CompleteAsync();
+            await this.UnitOfWork.CompleteAsync();
             return Entity(entity);
         }
         catch (Exception e)
@@ -52,7 +52,7 @@ public class CrudService<TEntity, TId> : ICrudService<TEntity, TId> where TEntit
         try
         {
             this._crudRepository.Update(existEntity);
-            await _unitOfWork.CompleteAsync();
+            await UnitOfWork.CompleteAsync();
             return Entity(existEntity);
         }
         catch (Exception e)
@@ -69,7 +69,7 @@ public class CrudService<TEntity, TId> : ICrudService<TEntity, TId> where TEntit
         try
         {
             this._crudRepository.Remove(existEntity);
-            await _unitOfWork.CompleteAsync();
+            await UnitOfWork.CompleteAsync();
             return Entity(existEntity);
         }
         catch (Exception e)

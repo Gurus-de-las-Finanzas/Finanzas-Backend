@@ -24,5 +24,9 @@ public class PeriodRepository : CrudRepository<Period, int>, IPeriodRepository
         return (await FindByScheduleId(scheduleId))
             .FirstOrDefault(p => p.NumberPeriod == periodNumber);
     }
-   
+
+    public async Task SaveManyAsync(IEnumerable<Period> periods)
+    {
+        await DataSet.AddRangeAsync(periods);
+    }
 }

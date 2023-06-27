@@ -46,7 +46,7 @@ public class SchedulesController : CrudController<Schedule, int, ScheduleResourc
     [HttpGet("{id}/periods")]
     public async Task<IActionResult> GetPeriodsByScheduleId(int id)
     {
-        var scheduleResult = await _crudService.FindByIdAsync(id);
+        var scheduleResult = await CrudService.FindByIdAsync(id);
         if (!scheduleResult.Success)
             return BadRequestResponse(scheduleResult.Message);
 
@@ -57,7 +57,7 @@ public class SchedulesController : CrudController<Schedule, int, ScheduleResourc
     [HttpGet("{scheduleId}/periods/{periodNumber}")]
     public async Task<IActionResult> GetPeriodByScheduleIdAndPeriodNumber(int scheduleId, int periodNumber)
     {
-        var scheduleResult = await _crudService.FindByIdAsync(scheduleId);
+        var scheduleResult = await CrudService.FindByIdAsync(scheduleId);
         if (!scheduleResult.Success)
             return BadRequestResponse(scheduleResult.Message);
 

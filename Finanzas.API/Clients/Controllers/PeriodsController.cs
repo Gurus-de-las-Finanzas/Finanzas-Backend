@@ -6,6 +6,8 @@ using Finanzas.API.Clients.Resources.Save;
 using Finanzas.API.Clients.Resources.Update;
 using Finanzas.API.Security.Authorization.Attributes;
 using Finanzas.API.Shared.Controller;
+using Finanzas.API.Shared.Domain.Services.Communication;
+using Finanzas.API.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finanzas.API.Clients.Controllers;
@@ -15,9 +17,11 @@ namespace Finanzas.API.Clients.Controllers;
 [Route("/api/v1/[controller]")]
 public class PeriodsController : CrudController<Period, int, PeriodResource, SavePeriodResource, UpdatePeriodResource>
 {
+    private readonly IPeriodService _periodService;
     
     public PeriodsController(IPeriodService periodService, IMapper mapper) : base(periodService, mapper)
     {
+        _periodService = periodService;
     }
 
 
@@ -42,5 +46,14 @@ public class PeriodsController : CrudController<Period, int, PeriodResource, Sav
     public new async Task<IActionResult> GetByIdAsync(int id)
     {
         return await base.GetByIdAsync(id);
+    }
+
+    [HttpPost("many")]
+    public async Task<IActionResult> SaveManyAsync([FromBody] IEnumerable<SavePeriodResource> periodResources)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState.GetErrorMessages());
+        var result = await _periodService.SaveManyAsync(Mapper.Map<IEnumerable<Period>>(periodResources));
+        return !result.Success ? BadRequestResponse(result.Message) : Created(nameof(SaveManyAsync), ErrorResponse.Of("All saved"));
     }
 }

@@ -8,4 +8,6 @@ public interface IPeriodService : ICrudService<Period, int>
 {
     public Task<IEnumerable<Period>> FindByScheduleId(int scheduleId);
     public Task<BaseResponse<Period>> FindByScheduleIdAndPeriodNumber(int scheduleId, int periodNumber);
+    public Task<BaseResponse<bool>> SaveManyAsync(IEnumerable<Period> periods);
 }
+    

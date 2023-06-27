@@ -81,11 +81,13 @@ public class AppDbContext: DbContext
         builder.Entity<Schedule>().Property(s => s.Loan).IsRequired();
         builder.Entity<Schedule>().Property(s => s.InterestRate).IsRequired();
         builder.Entity<Schedule>().Property(s => s.TypeRate).IsRequired();
+        builder.Entity<Schedule>().Property(s => s.GraceMonths);
+        builder.Entity<Schedule>().Property(s => s.GracePeriod);
         builder.Entity<Schedule>().Property(s => s.MiViviendaBonus);
         builder.Entity<Schedule>().Property(s => s.GoodPayerBonus);
         
         builder.Entity<User>()
-            .HasMany(p => p.Clients)
+            .HasMany<Client>()
             .WithOne(p => p.User)
             .HasForeignKey(p => p.UserId);
 

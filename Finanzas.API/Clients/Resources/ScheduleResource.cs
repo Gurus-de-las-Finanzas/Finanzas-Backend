@@ -18,4 +18,6 @@ public class ScheduleResource : IBaseEntity<int>
     public char TypeRate { set; get; }
     public double? MiViviendaBonus { set; get; }
     public double? GoodPayerBonus { set; get; }
+    public int? GraceMonths { set; get; }
+    public char? GracePeriod { set; get; }
 }

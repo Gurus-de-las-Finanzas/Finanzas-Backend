@@ -60,7 +60,7 @@ public class ClientsController: CrudController<Client, int, ClientResource, Save
     [HttpGet("{id}/schedule")]
     public async Task<IActionResult> GetScheduleByClientId(int id)
     {
-        var client = await _crudService.FindByIdAsync(id);
+        var client = await CrudService.FindByIdAsync(id);
 
         if (!client.Success)
             return BadRequestResponse(client.Message);

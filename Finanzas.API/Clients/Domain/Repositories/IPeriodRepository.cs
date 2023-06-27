@@ -7,4 +7,6 @@ public interface IPeriodRepository : ICrudRepository<Period, int>
 {
     public Task<IEnumerable<Period>> FindByScheduleId(int scheduleId);
     public Task<Period?> FindByScheduleIdAndPeriodNumber(int scheduleId, int periodNumber);
+
+    public Task SaveManyAsync(IEnumerable<Period> periods);
 }

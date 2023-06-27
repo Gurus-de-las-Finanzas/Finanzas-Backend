@@ -8,7 +8,7 @@ namespace Finanzas.API.Shared.Controller;
 
 public class CrudController<TEntity, TId, TResource, TSaveResource, TUpdateResource> : ControllerBase
 {
-    protected readonly ICrudService<TEntity, TId> _crudService;
+    protected readonly ICrudService<TEntity, TId> CrudService;
     protected readonly IMapper Mapper;
 
     protected IActionResult EntityNotExists(string entityName)
@@ -20,7 +20,7 @@ public class CrudController<TEntity, TId, TResource, TSaveResource, TUpdateResou
 
     protected CrudController(ICrudService<TEntity, TId> crudService, IMapper mapper)
     {
-        _crudService = crudService;
+        CrudService = crudService;
         Mapper = mapper;
     }
     protected TEntity? FromSaveResourceToEntity(TSaveResource resource)
@@ -39,14 +39,14 @@ public class CrudController<TEntity, TId, TResource, TSaveResource, TUpdateResou
     
     protected async Task<IEnumerable<TResource>> GetAllAsync()
     {
-        var entities = await _crudService.ListAsync();
+        var entities = await CrudService.ListAsync();
         var resources = Mapper.Map<IEnumerable<TEntity>, IEnumerable<TResource>>(entities);
 
         return resources;
     }
     protected async Task<IActionResult> GetByIdAsync(TId id)
     {
-        var result = await _crudService.FindByIdAsync(id);
+        var result = await CrudService.FindByIdAsync(id);
         if (!result.Success)
             return BadRequestResponse(result.Message);
 
@@ -61,7 +61,7 @@ public class CrudController<TEntity, TId, TResource, TSaveResource, TUpdateResou
 
         var entity = FromSaveResourceToEntity(resource);
 
-        var result = await _crudService.SaveAsync(entity!);
+        var result = await CrudService.SaveAsync(entity!);
         if (!result.Success)
             return BadRequestResponse(result.Message);
 
@@ -75,7 +75,7 @@ public class CrudController<TEntity, TId, TResource, TSaveResource, TUpdateResou
             return BadRequest(ModelState.GetErrorMessages());
 
         var entity = FromUpdateResourceToEntity(resource);
-        var result = await _crudService.UpdateAsync(id, entity!);
+        var result = await CrudService.UpdateAsync(id, entity!);
 
         if (!result.Success)
             return BadRequest(result.Message);
@@ -86,7 +86,7 @@ public class CrudController<TEntity, TId, TResource, TSaveResource, TUpdateResou
     }
     protected async Task<IActionResult> DeleteAsync(TId id)
     {
-        var result = await _crudService.DeleteAsync(id);
+        var result = await CrudService.DeleteAsync(id);
         if (!result.Success)
             return BadRequestResponse(result.Message);
 
